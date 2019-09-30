@@ -1,0 +1,183 @@
+﻿<Page x:Class="Restaurante_1.View.New_Food"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Restaurante_1.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="335" d:DesignWidth="700"
+      Title="New_Food">
+
+    <Page.Resources>
+        <Style x:Key="BlueButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0,0" StartPoint="0,2" >
+                        <GradientStop Color="#666666" Offset="0.0"/>
+                        <GradientStop Color="#0d0d0d" Offset="0.9"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="#EEEEEEEE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#EEEEEEEE"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="Timeline1">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.15" Value="1"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="Timeline2">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.15" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <Border BorderThickness="1" BorderBrush="#AA9A9A9A" Padding="1,1"
+							CornerRadius="3">
+                            <Border x:Name="border" 
+								BorderThickness="1"
+								Padding="0,0" 
+								BorderBrush="DarkGray" 
+								CornerRadius="3" 
+								Background="{TemplateBinding Background}">
+                                <Grid>
+                                    <Border Opacity="0" HorizontalAlignment="Stretch"  x:Name="glow" CornerRadius="1,1,1,1">
+                                        <Border.Background>
+                                            <RadialGradientBrush>
+                                                <RadialGradientBrush.RelativeTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleX="1.702" ScaleY="2.243"/>
+                                                        <SkewTransform AngleX="0" AngleY="0"/>
+                                                        <RotateTransform Angle="0"/>
+                                                        <TranslateTransform X="-0.368" Y="-0.152"/>
+                                                    </TransformGroup>
+                                                </RadialGradientBrush.RelativeTransform>
+                                                <GradientStop Color="#B22D83F9" Offset="0"/>
+                                                <GradientStop Color="#000018B7" Offset="1"/>
+                                            </RadialGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="content" />
+                                </Grid>
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource Timeline1}"/>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard x:Name="Timeline2_BeginStoryboard" Storyboard="{StaticResource Timeline2}"/>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0" >
+                                            <GradientStop Color="#FFaaaaaa" Offset="0.515"/>
+                                            <GradientStop Color="#FF001414" Offset="0"/>
+                                            <GradientStop Color="#FF000000" Offset="0.487"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="content" Property="RenderTransform" >
+                                    <Setter.Value>
+                                        <TranslateTransform Y="0.5" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#B22D83F9" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#B22D83F9" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.4" />
+                                <Setter Property="Foreground" Value="Gray" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <TextBlock Margin="0,-85,0,0" Text="{Binding Display_User}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Center" FontSize="38" FontFamily="Modern No. 20" Foreground="#EEEEEEEE">
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.3" BlurRadius="4"/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock Margin="0,-32,10,0" Text="{Binding Display_Message, NotifyOnTargetUpdated=True}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Right" FontSize="18" FontFamily="Arial" Foreground="#dd3e3e">
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.25" From="0" To="1"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:3" Duration="0:0:0.5" To="0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="15,0,0,0" TextDecorations="Underline" Text="New Food" VerticalAlignment="Top" Width="auto"  FontSize="44" FontFamily="Modern No. 20" Foreground="#EEEEEEEE">
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.3" BlurRadius="4"/>
+            </TextBlock.Effect>
+        </TextBlock>
+
+        <Border Margin="50,50,50,0" CornerRadius="6,6,6,6" BorderThickness="1,1,1,1" BorderBrush="#7FFFFFFF" Width="450" Height="auto"  VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="leftBord" >
+            <StackPanel>
+                <Border Margin="1,1,1,1" CornerRadius="6,6,6,6" BorderThickness="1,1,1,1" BorderBrush="#7FFFFFFF" x:Name="leftBorde" >
+                    <DockPanel Margin="5">
+                        <StackPanel>
+                            <TextBlock x:Name="lbl_foodname" Text="Food Name:" Margin="0,0,0,10" FontSize="30" HorizontalAlignment="Left"  VerticalAlignment="Center" Foreground="#EEEEEE"  FontFamily="Modern No. 20">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect ShadowDepth="4"   Direction="330"     Color="Black"      Opacity="0.3"     BlurRadius="4"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                            <TextBlock x:Name="lbl_price" Text="Price\Unit:" Margin="0,0,0,10" FontSize="30" HorizontalAlignment="Left"  VerticalAlignment="Center" Foreground="#EEEEEE"  FontFamily="Modern No. 20">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect ShadowDepth="4"   Direction="330"     Color="Black"      Opacity="0.3"     BlurRadius="4"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                            <TextBlock x:Name="lbl_cat" Text="Category:" Margin="0,0,0,10" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#EEEEEE" FontFamily="Modern No. 20">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect ShadowDepth="4"   Direction="330"     Color="Black"      Opacity="0.3"     BlurRadius="4"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                            <TextBlock x:Name="lbl_count" Text="Count:" Margin="0,0,0,10" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#EEEEEE" FontFamily="Modern No. 20">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect ShadowDepth="4"   Direction="330"     Color="Black"      Opacity="0.3"     BlurRadius="4"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBox x:Name="tb_foodname" Text="{Binding  Food_name}"  Margin="0,0,0,0"  HorizontalAlignment="Right" Width="170" FontSize="24" FontFamily="Arial"  />
+                            <TextBox x:Name="tb_price"  Text="{Binding Food_price}"  Margin="0,12,0,0"  HorizontalAlignment="Right" Width="170" FontSize="24" FontFamily="Arial"  />
+                            <TextBox x:Name="tb_cat" Text="{Binding Category}"  Margin="0,12,0,0"  HorizontalAlignment="Right" Width="170" FontSize="24" FontFamily="Arial"  />
+                            <TextBox x:Name="tb_count" Text="{Binding In_Stock}"  Margin="0,12,0,0"  HorizontalAlignment="Right" Width="170" FontSize="24" FontFamily="Arial"  />
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+                <Border Margin="1,1,1,2" CornerRadius="6,6,6,6" BorderThickness="1,1,1,1" BorderBrush="#7FFFFFFF" x:Name="leftBordee" >
+                    <Button  Name="btn_change" Command="{Binding New_Food_Command}" Style="{StaticResource BlueButtonStyle}" IsEnabled="{Binding ElementName=tb_title, Path=Text.Length, Mode=OneWay}" Margin="1,2,1,2" Content="Add" FontSize="20" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center"  />
+                </Border>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Page>

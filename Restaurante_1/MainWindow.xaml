@@ -1,0 +1,261 @@
+﻿<Window x:Class="Restaurante_1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restaurante_1.ViewModel"
+        xmlns:dw="clr-namespace:Restaurante_1.Controls"        
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="{x:Null}" 
+        ShowInTaskbar="True"
+        Title="MainWindow" Height="600" Width="700">
+    <Window.Resources>
+        <Style x:Key="BlueButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0,0" StartPoint="0,2" >
+                        <GradientStop Color="#666666" Offset="0.0"/>
+                        <GradientStop Color="#0d0d0d" Offset="0.9"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="#EEEEEEEE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#EEEEEEEE"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="Timeline1">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.15" Value="1"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="Timeline2">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.15" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <Border BorderThickness="1" BorderBrush="#AA9A9A9A" Padding="1,1"
+							CornerRadius="3">
+                            <Border x:Name="border" 
+								BorderThickness="1"
+								Padding="0,0" 
+								BorderBrush="DarkGray" 
+								CornerRadius="3" 
+								Background="{TemplateBinding Background}">
+                                <Grid>
+                                    <Border Opacity="0" HorizontalAlignment="Stretch"  x:Name="glow" CornerRadius="1,1,1,1">
+                                        <Border.Background>
+                                            <RadialGradientBrush>
+                                                <RadialGradientBrush.RelativeTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleX="1.702" ScaleY="2.243"/>
+                                                        <SkewTransform AngleX="0" AngleY="0"/>
+                                                        <RotateTransform Angle="0"/>
+                                                        <TranslateTransform X="-0.368" Y="-0.152"/>
+                                                    </TransformGroup>
+                                                </RadialGradientBrush.RelativeTransform>
+                                                <GradientStop Color="#B22D83F9" Offset="0"/>
+                                                <GradientStop Color="#000018B7" Offset="1"/>
+                                            </RadialGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="content" />
+                                </Grid>
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource Timeline1}"/>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard x:Name="Timeline2_BeginStoryboard" Storyboard="{StaticResource Timeline2}"/>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0" >
+                                            <GradientStop Color="#FFaaaaaa" Offset="0.515"/>
+                                            <GradientStop Color="#FF001414" Offset="0"/>
+                                            <GradientStop Color="#FF000000" Offset="0.487"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="content" Property="RenderTransform" >
+                                    <Setter.Value>
+                                        <TranslateTransform Y="0.5" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#B22D83F9" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#B22D83F9" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.4" />
+                                <Setter Property="Foreground" Value="Gray" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MenuItem" TargetType="{x:Type MenuItem}">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Background" Value="#262626" />
+            <Setter Property="Foreground" Value="#f2f2f2" />
+        </Style>
+        <Style x:Key="MenuStyle" TargetType="{x:Type Menu}">
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="#EEEEEE" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Menu}">
+                        <Grid>
+                            <Border Margin="1" x:Name="Border" BorderBrush="#66FFFFFF" BorderThickness="1" />
+                            <StackPanel IsItemsHost="True" ClipToBounds="True" Orientation="Horizontal" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="00:00:01" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Window.Unloaded">
+            <BeginStoryboard>
+                <Storyboard Name="FormFadeOut">
+                    <DoubleAnimation  Name="FormFadeOutAnimation"
+                                  Storyboard.TargetName="winHelp"
+                                  Storyboard.TargetProperty="(Window.Opacity)"
+                                  From="1.0"
+                                  To="0.0"
+                                  Duration="0:0:1"
+                                  AutoReverse="False"
+                                  RepeatBehavior="1x" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <TextBlock x:Name="tb_disp" Margin="0,90,10,0" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Right" FontSize="18" FontFamily="Arial" Foreground="#dd3e3e">
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.25" From="0" To="1"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:3" Duration="0:0:0.5" To="0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
+        <Rectangle Margin="0,0,0,0" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" RadiusX="400" RadiusY="100" Stroke="#E5B0B0B0" StrokeThickness="1.5" x:Name="rectOuterr">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#0d0d0d"  Opacity="1"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Margin="0,0,0,0" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" RadiusX="400" RadiusY="100" Stroke="#E5B0B0B0" StrokeThickness="1.5" x:Name="rectOuter">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="3,3" StartPoint="0,0.1">
+                    <GradientStop Color="#1a1a1a30" Offset="0"/>
+                    <GradientStop Color="#403F3E70" Offset="0.3"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Margin="3,3,3,3" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" RadiusX="400" RadiusY="100" Stroke="#9CB0B0B0" StrokeThickness="1.5" x:Name="rectInner"/>
+
+        <TextBlock Text="Restaurant" FontSize="42" HorizontalAlignment="Center" Width="200" VerticalAlignment="Top" Foreground="#EEEEEEEE" Margin="0,20,0,0" FontFamily="Modern No. 20">
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="4"   Direction="330"     Color="Black"      Opacity="0.3"     BlurRadius="4"/>
+            </TextBlock.Effect>
+        </TextBlock>
+
+        <Path HorizontalAlignment="Left" Margin="240,80,0,0" VerticalAlignment="Top" Width="110" Height="25" Fill="{x:Null}" Stretch="Fill" Stroke="#EEEEEEEE" StrokeThickness="1.5" Data="M381,33 C381, 33 383,54 322.25,41 261,28 269,63 269,63" d:LayoutOverrides="HorizontalAlignment">
+            <Path.RenderTransform>
+                <ScaleTransform ScaleY="-1" />
+            </Path.RenderTransform>
+            <Path.Effect>
+                <DropShadowEffect ShadowDepth="4"   Direction="330"     Color="Black"      Opacity="0.3"     BlurRadius="4"/>
+            </Path.Effect>
+        </Path>
+        <Path HorizontalAlignment="Left" Margin="350,55,0,0" VerticalAlignment="Top" Width="101" Height="25" Fill="{x:Null}" Stretch="Fill" Stroke="#EEEEEEEE" StrokeThickness="1.5" Data="M381,33 C381,33 383.25,54.25 322.25,41.25 261.25,28.25 269.25034,63.249858 269.25034,63.249858" RenderTransformOrigin="0.5,0.5">
+            <Path.RenderTransform>
+                <ScaleTransform ScaleY="-1" ScaleX="-1" />
+            </Path.RenderTransform>
+            <Path.Effect>
+                <DropShadowEffect ShadowDepth="4"   Direction="330"     Color="Black"      Opacity="0.3"     BlurRadius="4"/>
+            </Path.Effect>
+        </Path>
+
+        <Border x:Name="MenuBorder" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,0,5,0" Width="700" >
+            <Menu Style="{DynamicResource MenuStyle}" VerticalAlignment="Bottom" Margin="0,130,0,0" FontFamily="Modern No. 20"  >
+                <MenuItem  Visibility="Visible" Header="_Menu" x:Name="Menu" >
+                    <MenuItem Command="{Binding View_LoginMenu_Command}" Style="{DynamicResource MenuItem}" Header="_Login/Logout" />
+                    <MenuItem Command="{Binding Change_PW_Window_Command}" Style="{DynamicResource MenuItem}"  Header="_Change Password"  />
+                    <MenuItem Command="{Binding LogoutCommand}" Style="{DynamicResource MenuItem}" Header="_Logout" />
+                    <MenuItem Command="{Binding CloseCommand}" Style="{DynamicResource MenuItem}" Header="_Quit" />
+                </MenuItem>
+                <MenuItem Visibility="Visible" Header="_Orders" x:Name="OrderMenu" >
+                    <MenuItem Command="{Binding New_Order_Command}" Style="{DynamicResource MenuItem}"  Header="_New Order"  />
+                    <MenuItem Command="{Binding Table_Click_Command}" Style="{DynamicResource MenuItem}"  Header="_Order list"  />
+
+                </MenuItem>
+                <MenuItem Visibility="Visible" Header="_Management" x:Name="ManMenu" >
+                    <MenuItem Command="{Binding View_UserMenu_Command}" Style="{DynamicResource MenuItem}"  Header="_Waiters"   />
+                    <MenuItem Command="{Binding Load_Food_List_Command}" Style="{DynamicResource MenuItem}"  Header="_Stock" />
+                    <MenuItem Command="{Binding Order_more_Command}" Style="{DynamicResource MenuItem}"  Header="_Refill Stock" />
+                </MenuItem>            
+            </Menu>
+        </Border>
+
+        <dw:FaderFrame x:Name="FaderFrame" FadeDuration="0:0:0.25" Content="{Binding Path=DisplayPage}" Margin="0,100,0,0" Height="370" NavigationUIVisibility="Hidden"/>
+
+        <Path HorizontalAlignment="Left" Margin="350,0,0,40" VerticalAlignment="Bottom" Width="110" Height="25" Fill="{x:Null}" Stretch="Fill" Stroke="#EEEEEEEE" StrokeThickness="1.5" Data="M381,33 C381, 33 383,54 322.25,41 261,28 269,63 269,63" d:LayoutOverrides="HorizontalAlignment">
+            <Path.RenderTransform>
+                <ScaleTransform ScaleY="-1" />
+            </Path.RenderTransform>
+            <Path.Effect>
+                <DropShadowEffect ShadowDepth="4"   Direction="330"     Color="Black"      Opacity="0.3"     BlurRadius="4"/>
+            </Path.Effect>
+        </Path>
+        <Path HorizontalAlignment="Left" Margin="250,0,0,65" VerticalAlignment="Bottom" Width="101" Height="25" Fill="{x:Null}" Stretch="Fill" Stroke="#EEEEEEEE" StrokeThickness="1.5" Data="M381,33 C381,33 383.25,54.25 322.25,41.25 261.25,28.25 269.25034,63.249858 269.25034,63.249858" RenderTransformOrigin="0.5,0.5">
+            <Path.RenderTransform>
+                <ScaleTransform ScaleY="-1" ScaleX="-1" />
+            </Path.RenderTransform>
+            <Path.Effect>
+                <DropShadowEffect ShadowDepth="4"   Direction="330"     Color="Black"      Opacity="0.3"     BlurRadius="4"/>
+            </Path.Effect>
+        </Path>
+        <Label  Height="auto" HorizontalAlignment="Center" Margin="5,0,0,30" Name="label1" VerticalAlignment="Bottom" Width="auto" FontSize="18" Foreground="#EEEEEE" FontFamily="Moder No. 20" />
+    </Grid>
+</Window>
+
